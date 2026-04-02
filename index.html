@@ -1,1593 +1,912 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Gartner India — Research, Advisory & Consulting</title>
-<style>
-/* ══════════════════════════════════════════
-   RESET & BASE
-══════════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-
-:root {
-  /* Core Palette */
-  --navy:        #0b1c36;
-  --navy-mid:    #162d52;
-  --blue:        #1d4082;
-  --blue-mid:    #2255a4;
-  --accent:      #1b6fd8;
-  --accent-lt:   #3a8af0;
-  --sky-pale:    #ddeaf8;
-  --sky-bg:      #f0f5fc;
-  --white:       #ffffff;
-  --offwhite:    #f8fafd;
-  --text-dark:   #0b1c36;
-  --text-mid:    #2e4270;
-  --text-lite:   #6b82a8;
-  --border:      #d8e3f0;
-  --border-lt:   #eaf0f9;
-  --whatsapp:    #25d366;
-  --whatsapp-dk: #1aab55;
-
-  /* Spacing */
-  --section-pad: 96px;
-
-  /* Effects */
-  --shadow-xs: 0 1px 4px rgba(11,28,54,.06);
-  --shadow-sm: 0 2px 12px rgba(11,28,54,.08);
-  --shadow-md: 0 8px 32px rgba(11,28,54,.12);
-  --shadow-lg: 0 20px 60px rgba(11,28,54,.16);
-  --radius:    6px;
-  --radius-lg: 12px;
-  --ease:      cubic-bezier(.4,0,.2,1);
-  --t:         .22s;
-
-  /* Typography */
-  --serif:  Georgia, 'Times New Roman', serif;
-  --sans:   'Segoe UI', 'SF Pro Text', system-ui, -apple-system, sans-serif;
-}
-
-body {
-  font-family: var(--sans);
-  color: var(--text-dark);
-  background: var(--white);
-  line-height: 1.65;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-a { text-decoration: none; color: inherit; }
-img { display: block; }
-button { font-family: inherit; cursor: pointer; }
-
-/* ══════════════════════════════════════════
-   UTILITY
-══════════════════════════════════════════ */
-.container {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 0 32px;
-}
-
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: .7rem; font-weight: 700;
-  letter-spacing: .2em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 14px;
-}
-.eyebrow::before {
-  content: ''; display: block;
-  width: 24px; height: 2px;
-  background: var(--accent); flex-shrink: 0;
-}
-
-.section-heading {
-  font-family: var(--serif);
-  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
-  font-weight: 400; color: var(--navy);
-  line-height: 1.2; margin-bottom: 16px;
-}
-
-.section-sub {
-  font-size: 1rem; color: var(--text-mid);
-  line-height: 1.75; max-width: 540px;
-}
-
-.rule {
-  width: 40px; height: 2px;
-  background: var(--accent);
-  margin: 18px 0 24px;
-  border-radius: 2px;
-}
-
-/* ══════════════════════════════════════════
-   BUTTONS
-══════════════════════════════════════════ */
-.btn {
-  display: inline-flex; align-items: center;
-  gap: 8px; padding: 13px 26px;
-  border-radius: var(--radius);
-  font-size: .9rem; font-weight: 600;
-  letter-spacing: .015em;
-  transition: all var(--t) var(--ease);
-  border: 2px solid transparent;
-  white-space: nowrap; cursor: pointer;
-}
-.btn-primary {
-  background: var(--accent); color: var(--white);
-  border-color: var(--accent);
-}
-.btn-primary:hover {
-  background: #1457b5; border-color: #1457b5;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(27,111,216,.35);
-}
-.btn-outline {
-  background: transparent; color: var(--white);
-  border-color: rgba(255,255,255,.45);
-}
-.btn-outline:hover {
-  background: rgba(255,255,255,.12);
-  border-color: rgba(255,255,255,.8);
-}
-.btn-ghost-dark {
-  background: transparent; color: var(--navy);
-  border-color: var(--navy);
-}
-.btn-ghost-dark:hover {
-  background: var(--navy); color: var(--white);
-}
-.btn-wa {
-  background: var(--whatsapp); color: var(--white);
-  border-color: var(--whatsapp);
-}
-.btn-wa:hover {
-  background: var(--whatsapp-dk); border-color: var(--whatsapp-dk);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37,211,102,.4);
-}
-
-/* ══════════════════════════════════════════
-   HEADER
-══════════════════════════════════════════ */
-#header {
-  position: sticky; top: 0; z-index: 1000;
-  background: rgba(255,255,255,.96);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border-lt);
-  box-shadow: var(--shadow-xs);
-  transition: box-shadow var(--t);
-}
-#header.scrolled { box-shadow: var(--shadow-sm); }
-
-.header-inner {
-  display: flex; align-items: center;
-  justify-content: space-between;
-  height: 68px; max-width: 1160px;
-  margin: 0 auto; padding: 0 32px;
-}
-
-.logo {
-  font-family: var(--serif);
-  font-size: 1.45rem; font-weight: 700;
-  color: var(--navy); letter-spacing: -.01em;
-  display: flex; align-items: center;
-  gap: 0; flex-shrink: 0;
-}
-.logo-accent { color: var(--accent); }
-
-.main-nav {
-  display: flex; align-items: center; gap: 2px;
-  margin: 0 24px;
-}
-.main-nav a {
-  padding: 8px 13px;
-  font-size: .855rem; font-weight: 500;
-  color: var(--text-mid); border-radius: 4px;
-  transition: all var(--t);
-}
-.main-nav a:hover { color: var(--accent); background: var(--sky-bg); }
-
-.header-right { display: flex; align-items: center; gap: 10px; }
-
-/* Hamburger */
-.hamburger {
-  display: none;
-  flex-direction: column; gap: 5px;
-  padding: 6px 4px; cursor: pointer;
-  background: none; border: none;
-}
-.hamburger span {
-  display: block; width: 22px; height: 2px;
-  background: var(--navy); border-radius: 2px;
-  transition: all var(--t);
-}
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-/* Mobile nav drawer */
-.mobile-drawer {
-  display: none;
-  position: fixed; top: 68px; left: 0; right: 0;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow-md);
-  padding: 16px 28px 24px;
-  z-index: 999;
-  flex-direction: column; gap: 4px;
-}
-.mobile-drawer.open { display: flex; }
-.mobile-drawer a {
-  padding: 12px 4px;
-  font-size: .95rem; color: var(--text-mid);
-  border-bottom: 1px solid var(--border-lt);
-  display: block;
-}
-.mobile-drawer a:last-of-type { border-bottom: none; }
-.mobile-drawer .btn { margin-top: 14px; justify-content: center; }
-
-@media(max-width:900px){
-  .main-nav, .header-right .btn { display: none; }
-  .hamburger { display: flex; }
-}
-
-/* ══════════════════════════════════════════
-   HERO
-══════════════════════════════════════════ */
-.hero {
-  background:
-    radial-gradient(ellipse 80% 60% at 75% 50%, rgba(27,111,216,.18) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 70% at 5% 90%, rgba(255,255,255,.04) 0%, transparent 55%),
-    linear-gradient(150deg, var(--navy) 0%, #142a52 50%, var(--blue) 100%);
-  min-height: 90vh;
-  display: flex; align-items: center;
-  padding: 110px 0 80px;
-  position: relative; overflow: hidden;
-}
-
-/* Geometric accent lines */
-.hero::before {
-  content: '';
-  position: absolute; top: -120px; right: -80px;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.05);
-  pointer-events: none;
-}
-.hero::after {
-  content: '';
-  position: absolute; bottom: -200px; right: 100px;
-  width: 500px; height: 500px;
-  border-radius: 50%;
-  border: 1px solid rgba(27,111,216,.2);
-  pointer-events: none;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px; align-items: center;
-  position: relative; z-index: 1;
-}
-
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: .72rem; font-weight: 700;
-  letter-spacing: .2em; text-transform: uppercase;
-  color: rgba(255,255,255,.6);
-  margin-bottom: 22px;
-}
-.hero-tag::before {
-  content: ''; display: block;
-  width: 28px; height: 2px;
-  background: var(--accent-lt); flex-shrink: 0;
-}
-
-.hero h1 {
-  font-family: var(--serif);
-  font-size: clamp(2.1rem, 4.8vw, 3.6rem);
-  font-weight: 400; color: var(--white);
-  line-height: 1.14; margin-bottom: 22px;
-}
-.hero h1 em {
-  font-style: italic;
-  color: #82b8f5;
-}
-
-.hero-para {
-  font-size: 1.05rem;
-  color: rgba(255,255,255,.72);
-  line-height: 1.78; margin-bottom: 38px;
-  max-width: 470px;
-}
-
-.hero-ctas {
-  display: flex; flex-wrap: wrap; gap: 12px;
-  margin-bottom: 48px;
-}
-
-.hero-stats {
-  display: flex; gap: 32px; flex-wrap: wrap;
-  padding-top: 36px;
-  border-top: 1px solid rgba(255,255,255,.1);
-}
-.hero-stat-num {
-  font-family: var(--serif);
-  font-size: 1.8rem; font-weight: 700;
-  color: var(--white); line-height: 1;
-  margin-bottom: 4px;
-}
-.hero-stat-label {
-  font-size: .72rem; color: rgba(255,255,255,.5);
-  text-transform: uppercase; letter-spacing: .1em;
-}
-
-/* Hero right: floating cards */
-.hero-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-.hcard {
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: var(--radius-lg);
-  padding: 24px 20px;
-  backdrop-filter: blur(10px);
-  transition: all var(--t) var(--ease);
-}
-.hcard:hover {
-  background: rgba(255,255,255,.12);
-  transform: translateY(-4px);
-  border-color: rgba(255,255,255,.2);
-}
-.hcard-icon { font-size: 1.6rem; margin-bottom: 12px; }
-.hcard-num {
-  font-family: var(--serif);
-  font-size: 2rem; font-weight: 700;
-  color: var(--white); line-height: 1;
-  margin-bottom: 5px;
-}
-.hcard-label {
-  font-size: .75rem;
-  color: rgba(255,255,255,.55);
-  text-transform: uppercase; letter-spacing: .08em;
-  line-height: 1.4;
-}
-
-@media(max-width:860px){
-  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-  .hero-cards { grid-template-columns: repeat(2,1fr); max-width: 420px; }
-}
-@media(max-width:480px){
-  .hero-ctas { flex-direction: column; }
-  .hero-ctas .btn { justify-content: center; }
-  .hero-stats { gap: 20px; }
-}
-
-/* ══════════════════════════════════════════
-   TRUST METRICS
-══════════════════════════════════════════ */
-.metrics {
-  background: var(--white);
-  border-bottom: 1px solid var(--border-lt);
-  padding: 52px 0;
-}
-.metrics-row {
-  display: grid;
-  grid-template-columns: repeat(5,1fr);
-  divide-color: red;
-}
-.metric-cell {
-  text-align: center;
-  padding: 22px 16px;
-  border-right: 1px solid var(--border-lt);
-  transition: background var(--t);
-}
-.metric-cell:last-child { border-right: none; }
-.metric-cell:hover { background: var(--sky-bg); }
-.metric-n {
-  font-family: var(--serif);
-  font-size: 2.5rem; font-weight: 700;
-  color: var(--navy); line-height: 1;
-  margin-bottom: 7px;
-}
-.metric-n sup { font-size: 1rem; vertical-align: super; }
-.metric-l {
-  font-size: .74rem; color: var(--text-lite);
-  letter-spacing: .05em; line-height: 1.4;
-}
-
-@media(max-width:720px){
-  .metrics-row { grid-template-columns: repeat(3,1fr); }
-  .metric-cell:nth-child(3) { border-right: none; }
-  .metric-cell:nth-child(4) { border-right: 1px solid var(--border-lt); }
-}
-@media(max-width:440px){
-  .metrics-row { grid-template-columns: 1fr 1fr; }
-  .metric-cell:nth-child(2),.metric-cell:nth-child(4) { border-right: none; }
-  .metric-cell:nth-child(3) { border-right: 1px solid var(--border-lt); }
-}
-
-/* ══════════════════════════════════════════
-   SERVICES
-══════════════════════════════════════════ */
-.services {
-  padding: var(--section-pad) 0;
-  background: var(--offwhite);
-}
-.services-head {
-  text-align: center; margin-bottom: 60px;
-}
-.services-head .section-sub { margin: 0 auto; }
-.services-head .rule { margin: 18px auto 0; }
-
-.services-cols {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
-}
-
-.svc-col {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-xs);
-}
-.svc-col-head {
-  padding: 28px 30px 24px;
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(130deg, var(--navy) 0%, var(--blue) 100%);
-}
-.svc-col-head h3 {
-  font-family: var(--serif);
-  font-size: 1.15rem; font-weight: 400;
-  color: var(--white); margin-bottom: 5px;
-}
-.svc-col-head p {
-  font-size: .76rem;
-  color: rgba(255,255,255,.6);
-}
-
-.svc-item {
-  display: flex; align-items: flex-start;
-  gap: 15px; padding: 19px 28px;
-  border-bottom: 1px solid var(--border-lt);
-  transition: background var(--t) var(--ease);
-  cursor: pointer;
-}
-.svc-item:last-child { border-bottom: none; }
-.svc-item:hover { background: var(--sky-bg); }
-.svc-item:hover .svc-icon { background: var(--accent); }
-.svc-item:hover .svc-arrow { transform: translateX(4px); color: var(--accent); }
-
-.svc-icon {
-  width: 34px; height: 34px; flex-shrink: 0;
-  border-radius: 8px; background: var(--sky-pale);
-  display: flex; align-items: center; justify-content: center;
-  font-size: .95rem; transition: background var(--t);
-}
-.svc-body { flex: 1; }
-.svc-title {
-  font-size: .92rem; font-weight: 600;
-  color: var(--navy); margin-bottom: 3px;
-}
-.svc-desc {
-  font-size: .78rem; color: var(--text-lite); line-height: 1.5;
-}
-.svc-arrow {
-  color: var(--border); font-size: 1rem; align-self: center;
-  flex-shrink: 0; transition: all var(--t);
-}
-
-@media(max-width:760px){ .services-cols { grid-template-columns: 1fr; } }
-
-/* ══════════════════════════════════════════
-   TESTIMONIALS
-══════════════════════════════════════════ */
-.testimonials {
-  padding: var(--section-pad) 0;
-  background: var(--white);
-}
-.testi-head { margin-bottom: 52px; }
-
-.testi-grid {
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 22px;
-}
-.tcard {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 36px 30px;
-  box-shadow: var(--shadow-xs);
-  display: flex; flex-direction: column;
-  position: relative;
-  transition: all var(--t) var(--ease);
-}
-.tcard:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-5px);
-  border-color: var(--sky-pale);
-}
-.tcard::before {
-  content: '\201C';
-  font-family: var(--serif); font-size: 6rem;
-  color: var(--sky-pale); line-height: 1;
-  position: absolute; top: 12px; left: 22px;
-  pointer-events: none;
-}
-.tcard-quote {
-  font-family: var(--serif); font-size: 1.02rem;
-  color: var(--text-dark); line-height: 1.68;
-  flex: 1; margin-top: 30px; position: relative; z-index: 1;
-}
-.tcard-rule { width: 28px; height: 2px; background: var(--accent); margin: 22px 0 15px; }
-.tcard-name { font-size: .9rem; font-weight: 700; color: var(--navy); }
-.tcard-role { font-size: .76rem; color: var(--text-lite); margin-top: 3px; line-height: 1.4; }
-
-@media(max-width:860px){
-  .testi-grid { grid-template-columns: 1fr; max-width: 520px; }
-}
-
-/* ══════════════════════════════════════════
-   LOCATIONS
-══════════════════════════════════════════ */
-.locations {
-  padding: var(--section-pad) 0;
-  background: var(--offwhite);
-}
-.loc-layout {
-  display: grid; grid-template-columns: 280px 1fr;
-  gap: 48px; align-items: start;
-}
-.loc-head { margin-bottom: 40px; }
-
-.tab-nav { display: flex; flex-direction: column; gap: 10px; }
-.tab-btn {
-  display: flex; align-items: center; gap: 14px;
-  padding: 18px 20px; border-radius: var(--radius-lg);
-  background: var(--white); border: 1px solid var(--border);
-  cursor: pointer; text-align: left;
-  transition: all var(--t) var(--ease);
-}
-.tab-btn:hover:not(.active) { background: var(--sky-bg); border-color: var(--accent); }
-.tab-btn.active {
-  background: var(--navy); border-color: var(--navy); color: var(--white);
-}
-.tab-icon { font-size: 1.6rem; flex-shrink: 0; }
-.tab-btn-title { font-size: .95rem; font-weight: 600; display: block; }
-.tab-btn-sub { font-size: .74rem; opacity: .6; margin-top: 2px; display: block; }
-
-.tab-content { position: relative; }
-.tab-panel { display: none; animation: fadeUp .3s var(--ease) forwards; }
-.tab-panel.active { display: block; }
-@keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
-
-.loc-card {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
-.loc-visual {
-  height: 190px;
-  background: linear-gradient(140deg, var(--navy) 0%, var(--blue-mid) 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3.5rem; position: relative; overflow: hidden;
-}
-.loc-visual::after {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 30% 60%, rgba(255,255,255,.06) 0%, transparent 65%);
-}
-.loc-badge {
-  position: absolute; bottom: 16px; left: 20px;
-  background: rgba(0,0,0,.35); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,.15);
-  color: rgba(255,255,255,.85);
-  font-size: .68rem; letter-spacing: .14em;
-  text-transform: uppercase; font-weight: 600;
-  padding: 5px 12px; border-radius: 20px;
-}
-.loc-body { padding: 30px 28px; }
-.loc-body h3 {
-  font-family: var(--serif); font-size: 1.45rem;
-  color: var(--navy); margin-bottom: 10px;
-}
-.loc-body p { font-size: .9rem; color: var(--text-mid); line-height: 1.72; margin-bottom: 20px; }
-.loc-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-.pill {
-  font-size: .7rem; font-weight: 700; letter-spacing: .08em;
-  text-transform: uppercase; padding: 5px 13px;
-  border-radius: 20px; background: var(--sky-pale); color: var(--accent);
-}
-.loc-hiring { font-size: .85rem; color: var(--text-mid); line-height: 1.6; }
-.loc-hiring strong { color: var(--navy); font-weight: 600; }
-
-@media(max-width:760px){
-  .loc-layout { grid-template-columns: 1fr; }
-  .tab-nav { flex-direction: row; }
-  .tab-btn { flex: 1; }
-}
-
-/* ══════════════════════════════════════════
-   LEAD FORM
-══════════════════════════════════════════ */
-.lead-section {
-  padding: var(--section-pad) 0;
-  background: linear-gradient(150deg, var(--navy) 0%, #13274e 100%);
-  position: relative; overflow: hidden;
-}
-.lead-section::before {
-  content: ''; position: absolute;
-  right: -120px; top: -120px;
-  width: 480px; height: 480px;
-  border-radius: 50%;
-  background: rgba(27,111,216,.12);
-  pointer-events: none;
-}
-.lead-section::after {
-  content: ''; position: absolute;
-  left: -60px; bottom: -60px;
-  width: 300px; height: 300px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.03);
-  pointer-events: none;
-}
-
-.lead-inner {
-  display: grid; grid-template-columns: 1fr 1.15fr;
-  gap: 72px; align-items: center;
-  position: relative; z-index: 1;
-}
-
-.lead-copy .eyebrow { color: #82b8f5; }
-.lead-copy .eyebrow::before { background: #82b8f5; }
-.lead-copy .section-heading { color: var(--white); max-width: 400px; }
-.lead-copy .section-sub { color: rgba(255,255,255,.68); }
-.lead-list {
-  list-style: none; margin-top: 28px;
-  display: flex; flex-direction: column; gap: 11px;
-}
-.lead-list li {
-  font-size: .88rem; color: rgba(255,255,255,.72);
-  display: flex; align-items: flex-start; gap: 10px;
-}
-.lead-list li::before {
-  content: '✓'; color: #82b8f5; font-weight: 700;
-  flex-shrink: 0; line-height: 1.5;
-}
-
-/* WhatsApp alternative in form area */
-.form-wa-alt {
-  display: flex; align-items: center; gap: 12px;
-  margin-top: 28px; padding: 16px 18px;
-  background: rgba(37,211,102,.1);
-  border: 1px solid rgba(37,211,102,.25);
-  border-radius: var(--radius);
-}
-.form-wa-alt p {
-  font-size: .82rem; color: rgba(255,255,255,.7); line-height: 1.4;
-}
-.form-wa-alt strong { color: var(--white); }
-.form-wa-alt .btn { flex-shrink: 0; padding: 10px 18px; font-size: .82rem; }
-
-.form-card {
-  background: var(--white); border-radius: 14px;
-  padding: 42px 38px; box-shadow: var(--shadow-lg);
-}
-.form-card h3 {
-  font-family: var(--serif); font-size: 1.35rem;
-  color: var(--navy); margin-bottom: 26px;
-}
-.form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.fgroup { margin-bottom: 16px; }
-.fgroup label {
-  display: block; font-size: .72rem; font-weight: 700;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: var(--text-lite); margin-bottom: 6px;
-}
-.fgroup input, .fgroup select {
-  width: 100%; padding: 12px 14px;
-  border: 1.5px solid var(--border); border-radius: var(--radius);
-  font-size: .9rem; font-family: var(--sans);
-  color: var(--text-dark); background: var(--white);
-  transition: border-color var(--t), box-shadow var(--t);
-  outline: none; appearance: none;
-}
-.fgroup input::placeholder { color: #b0bcd4; }
-.fgroup input:focus, .fgroup select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(27,111,216,.1);
-}
-.fgroup select {
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b82a8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 38px;
-}
-.form-submit {
-  width: 100%; padding: 15px; border: none;
-  border-radius: var(--radius);
-  background: var(--accent); color: var(--white);
-  font-size: .95rem; font-weight: 700;
-  letter-spacing: .02em; cursor: pointer;
-  transition: all var(--t) var(--ease);
-  margin-top: 4px;
-}
-.form-submit:hover {
-  background: #1457b5;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(27,111,216,.38);
-}
-.form-submit:active { transform: none; }
-.form-note {
-  font-size: .72rem; color: var(--text-lite);
-  margin-top: 12px; text-align: center; line-height: 1.5;
-}
-
-@media(max-width:900px){ .lead-inner { grid-template-columns: 1fr; gap: 40px; } }
-@media(max-width:480px){ .form-2col { grid-template-columns: 1fr; } .form-card { padding: 28px 20px; } }
-
-/* ══════════════════════════════════════════
-   CAREERS
-══════════════════════════════════════════ */
-.careers {
-  padding: var(--section-pad) 0;
-  background: var(--offwhite);
-}
-.careers-inner {
-  display: grid; grid-template-columns: 1.1fr 1fr;
-  gap: 64px; align-items: start;
-}
-.careers-perks {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 14px; margin-top: 32px;
-}
-.perk {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 20px 18px;
-  transition: all var(--t) var(--ease);
-}
-.perk:hover { box-shadow: var(--shadow-sm); transform: translateY(-3px); }
-.perk-icon { font-size: 1.4rem; margin-bottom: 9px; }
-.perk-title { font-size: .88rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
-.perk-desc { font-size: .76rem; color: var(--text-lite); line-height: 1.5; }
-
-.careers-right { padding-top: 8px; }
-.careers-right .section-heading { font-size: clamp(1.4rem,2.5vw,2rem); }
-.careers-right .section-sub { max-width: 360px; }
-.openings { margin-top: 28px; }
-.opening-row {
-  display: flex; justify-content: space-between;
-  align-items: center; padding: 14px 0;
-  border-bottom: 1px solid var(--border-lt);
-}
-.opening-row:last-child { border-bottom: none; }
-.opening-label { font-size: .85rem; color: var(--text-mid); }
-.opening-count {
-  font-size: .82rem; font-weight: 700;
-  color: var(--accent);
-  background: var(--sky-pale); padding: 3px 10px;
-  border-radius: 20px;
-}
-
-@media(max-width:760px){
-  .careers-inner { grid-template-columns: 1fr; }
-}
-
-/* ══════════════════════════════════════════
-   FOOTER
-══════════════════════════════════════════ */
-footer {
-  background: var(--navy); padding: 64px 0 0;
-  color: rgba(255,255,255,.65);
-}
-.footer-cols {
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px; padding-bottom: 48px;
-}
-.footer-brand-col .logo {
-  color: var(--white); margin-bottom: 16px;
-}
-.footer-brand-col p {
-  font-size: .83rem; line-height: 1.75; max-width: 270px;
-}
-.footer-nav-col h4 {
-  font-size: .68rem; font-weight: 700;
-  letter-spacing: .16em; text-transform: uppercase;
-  color: rgba(255,255,255,.35); margin-bottom: 16px;
-}
-.footer-nav-col a {
-  display: block; font-size: .83rem;
-  color: rgba(255,255,255,.6);
-  margin-bottom: 10px;
-  transition: color var(--t);
-}
-.footer-nav-col a:hover { color: var(--white); }
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,.08);
-  padding: 20px 0; display: flex;
-  justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 10px;
-}
-.footer-bottom p { font-size: .74rem; color: rgba(255,255,255,.3); }
-.footer-badges { display: flex; gap: 18px; }
-.fbadge { font-size: .7rem; color: rgba(255,255,255,.3); display: flex; align-items: center; gap: 5px; }
-
-@media(max-width:760px){
-  .footer-cols { grid-template-columns: 1fr 1fr; }
-  .footer-brand-col { grid-column: 1/-1; }
-}
-
-/* ══════════════════════════════════════════
-   WHATSAPP FLOATING BUTTON
-══════════════════════════════════════════ */
-.wa-fab {
-  position: fixed;
-  bottom: 28px; right: 28px;
-  z-index: 900;
-  width: 58px; height: 58px;
-  border-radius: 50%;
-  background: var(--whatsapp);
-  color: var(--white);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 20px rgba(37,211,102,.45), 0 2px 8px rgba(0,0,0,.2);
-  cursor: pointer;
-  transition: all var(--t) var(--ease);
-  text-decoration: none;
-}
-.wa-fab:hover {
-  background: var(--whatsapp-dk);
-  transform: scale(1.1);
-  box-shadow: 0 8px 28px rgba(37,211,102,.55), 0 3px 12px rgba(0,0,0,.2);
-}
-.wa-fab:active { transform: scale(.96); }
-
-/* Pulsing ring */
-.wa-fab::before {
-  content: '';
-  position: absolute; inset: -4px;
-  border-radius: 50%;
-  border: 2px solid rgba(37,211,102,.4);
-  animation: wa-pulse 2.2s ease-in-out infinite;
-}
-@keyframes wa-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  60% { transform: scale(1.28); opacity: 0; }
-}
-
-.wa-fab svg { width: 28px; height: 28px; flex-shrink: 0; }
-
-/* Tooltip */
-.wa-tooltip {
-  position: absolute;
-  right: 70px; top: 50%;
-  transform: translateY(-50%);
-  background: var(--navy);
-  color: var(--white);
-  font-size: .75rem; font-weight: 600;
-  padding: 7px 14px;
-  border-radius: 6px;
-  white-space: nowrap;
-  opacity: 0; pointer-events: none;
-  transition: opacity var(--t);
-  box-shadow: var(--shadow-sm);
-}
-.wa-tooltip::after {
-  content: '';
-  position: absolute; left: 100%; top: 50%;
-  transform: translateY(-50%);
-  border: 5px solid transparent;
-  border-left-color: var(--navy);
-}
-.wa-fab:hover .wa-tooltip { opacity: 1; }
-
-/* Push fab up on mobile to clear sticky bar */
-@media(max-width:640px){
-  .wa-fab { bottom: 84px; right: 16px; width: 52px; height: 52px; }
-  .wa-fab svg { width: 24px; height: 24px; }
-  .wa-tooltip { display: none; }
-}
-
-/* ══════════════════════════════════════════
-   MOBILE STICKY CTA BAR
-══════════════════════════════════════════ */
-.mobile-cta-bar {
-  display: none;
-  position: fixed; bottom: 0; left: 0; right: 0;
-  z-index: 850;
-  background: var(--navy);
-  border-top: 1px solid rgba(255,255,255,.1);
-  padding: 12px 16px;
-  gap: 10px;
-  box-shadow: 0 -4px 20px rgba(11,28,54,.25);
-}
-.mobile-cta-bar .btn {
-  flex: 1; justify-content: center;
-  font-size: .84rem; padding: 11px 10px;
-}
-
-@media(max-width:640px){
-  .mobile-cta-bar { display: flex; }
-}
-
-/* ══════════════════════════════════════════
-   SCROLL REVEAL
-══════════════════════════════════════════ */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity .55s var(--ease), transform .55s var(--ease);
-}
-.reveal.in { opacity: 1; transform: none; }
-.delay-1 { transition-delay: .1s; }
-.delay-2 { transition-delay: .2s; }
-.delay-3 { transition-delay: .3s; }
-.delay-4 { transition-delay: .4s; }
-
-/* ══════════════════════════════════════════
-   SECTION ALTERNATION HELPERS
-══════════════════════════════════════════ */
-.center { text-align: center; }
-.center .section-sub { margin: 0 auto; }
-.center .rule { margin-left: auto; margin-right: auto; }
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pranali Ughade — Sr. Account Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #0d0d0d;
+      --ivory:     #f7f4ef;
+      --cream:     #ede9e0;
+      --accent:    #e05c2a;
+      --accent2:   #1a3a5c;
+      --gold:      #c8983a;
+      --mid:       #5a5752;
+      --light:     #b0aba3;
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'DM Sans', sans-serif;
+      --ease:       cubic-bezier(.25,.46,.45,.94);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--ivory);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 5%;
+      background: rgba(247,244,239,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(200,152,58,0.15);
+      transition: padding .3s var(--ease);
+    }
+    nav.scrolled { padding: .9rem 5%; }
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.35rem; font-weight: 600;
+      color: var(--ink); text-decoration: none;
+      letter-spacing: .03em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-size: .82rem; font-weight: 500; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--mid); text-decoration: none;
+      position: relative; transition: color .25s;
+    }
+    .nav-links a::after {
+      content:''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1.5px; background: var(--accent);
+      transition: width .3s var(--ease);
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { width: 100%; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); transition: .3s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 10rem 5% 6rem 7%;
+      position: relative; z-index: 2;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: .55rem;
+      font-size: .75rem; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.8rem;
+    }
+    .hero-tag::before {
+      content:''; display: inline-block;
+      width: 28px; height: 1.5px; background: var(--accent);
+    }
+    .hero-name {
+      font-family: var(--ff-display);
+      font-size: clamp(3.2rem, 6vw, 6rem);
+      font-weight: 700; line-height: .95;
+      color: var(--ink); margin-bottom: 1rem;
+      letter-spacing: -.01em;
+    }
+    .hero-name em { color: var(--accent); font-style: normal; }
+    .hero-title {
+      font-size: clamp(.95rem, 1.4vw, 1.2rem);
+      font-weight: 400; color: var(--mid);
+      letter-spacing: .04em; margin-bottom: 1.8rem;
+    }
+    .hero-line {
+      width: 56px; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      margin-bottom: 1.8rem;
+    }
+    .hero-statement {
+      font-family: var(--ff-display);
+      font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+      font-weight: 300; line-height: 1.55;
+      color: var(--ink); max-width: 480px; margin-bottom: 3rem;
+    }
+    .hero-statement strong { font-weight: 600; color: var(--accent2); }
+    .hero-ctas { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .85rem 2rem; border-radius: 2px;
+      font-size: .82rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; text-decoration: none;
+      transition: all .3s var(--ease); cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+    }
+    .btn-primary:hover {
+      background: #c44d1f;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(224,92,42,.3);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+    }
+    .btn-outline:hover {
+      background: var(--ink); color: var(--ivory);
+      transform: translateY(-2px);
+    }
+    .hero-right {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .hero-visual {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--accent2) 0%, #0a1e30 60%, #122e4a 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero-visual::before {
+      content: '';
+      position: absolute; top: -20%; right: -10%;
+      width: 70%; height: 70%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,92,42,.35) 0%, transparent 70%);
+    }
+    .hero-visual::after {
+      content: '';
+      position: absolute; bottom: -15%; left: -10%;
+      width: 60%; height: 60%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,152,58,.2) 0%, transparent 70%);
+    }
+    .hero-initials {
+      position: absolute; z-index: 2;
+      font-family: var(--ff-display);
+      font-size: clamp(7rem, 14vw, 16rem);
+      font-weight: 700; color: rgba(255,255,255,.06);
+      letter-spacing: -.05em; user-select: none;
+      line-height: 1;
+    }
+    .hero-card {
+      position: absolute; z-index: 3;
+      bottom: 12%; left: -44px;
+      background: var(--ivory);
+      padding: 1.6rem 2rem;
+      border-left: 3px solid var(--accent);
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+      min-width: 240px;
+    }
+    .hero-card-num {
+      font-family: var(--ff-display);
+      font-size: 2.8rem; font-weight: 700;
+      color: var(--accent); line-height: 1;
+    }
+    .hero-card-label {
+      font-size: .78rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--mid); margin-top: .3rem;
+    }
+    .hero-badge {
+      position: absolute; z-index: 3;
+      top: 20%; right: 10%;
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(224,92,42,.4);
+    }
+    .hero-badge-num {
+      font-family: var(--ff-display);
+      font-size: 2.2rem; font-weight: 700;
+      color: #fff; line-height: 1;
+    }
+    .hero-badge-text {
+      font-size: .6rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.85);
+    }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 7rem 5% 7rem 7%; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: .55rem;
+      font-size: .72rem; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    }
+    .section-tag::before {
+      content:''; display: inline-block;
+      width: 22px; height: 1.5px; background: var(--accent);
+    }
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      font-weight: 700; line-height: 1.05;
+      color: var(--ink); margin-bottom: 1.4rem;
+    }
+    .section-title em { color: var(--accent); font-style: normal; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--ink); color: var(--ivory); }
+    #about .section-title { color: var(--ivory); }
+    #about .section-tag { color: var(--gold); }
+    #about .section-tag::before { background: var(--gold); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.5fr;
+      gap: 5rem; align-items: center; margin-top: 3.5rem;
+    }
+    .about-numbers { display: flex; flex-direction: column; gap: 3rem; }
+    .about-num-item {}
+    .about-num {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 700; color: var(--accent);
+      line-height: 1;
+    }
+    .about-num-desc {
+      font-size: .82rem; font-weight: 400;
+      color: var(--light); letter-spacing: .06em;
+      text-transform: uppercase; margin-top: .4rem;
+    }
+    .about-divider {
+      width: 100%; height: 1px;
+      background: rgba(255,255,255,.08);
+    }
+    .about-bio {
+      font-family: var(--ff-display);
+      font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+      font-weight: 300; line-height: 1.7;
+      color: rgba(247,244,239,.85);
+    }
+    .about-bio strong { color: var(--gold); font-weight: 600; }
+    .about-bio p + p { margin-top: 1.4rem; }
+    .about-pillars {
+      display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 2rem;
+    }
+    .about-pill {
+      padding: .45rem 1.1rem;
+      border: 1px solid rgba(200,152,58,.35);
+      border-radius: 1px;
+      font-size: .75rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--ivory); }
+    .exp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; }
+    .exp-card {
+      background: #fff;
+      border-top: 3px solid transparent;
+      padding: 2.4rem 2rem;
+      position: relative;
+      transition: all .35s var(--ease);
+      box-shadow: 0 2px 20px rgba(0,0,0,.06);
+    }
+    .exp-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.12);
+    }
+    .exp-card.featured { border-top-color: var(--accent); }
+    .exp-card:not(.featured) { border-top-color: var(--cream); }
+    .exp-card:not(.featured):hover { border-top-color: var(--gold); }
+    .exp-period {
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    .exp-company {
+      font-family: var(--ff-display);
+      font-size: 1.55rem; font-weight: 700;
+      color: var(--ink); line-height: 1.1;
+      margin-bottom: .5rem;
+    }
+    .exp-role {
+      font-size: .88rem; font-weight: 500;
+      color: var(--mid); margin-bottom: 1.5rem;
+    }
+    .exp-divider {
+      width: 36px; height: 1.5px;
+      background: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .exp-desc {
+      font-size: .92rem; line-height: 1.75;
+      color: var(--mid);
+    }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; }
+    .exp-tag {
+      padding: .3rem .8rem;
+      background: var(--cream);
+      border-radius: 1px;
+      font-size: .7rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink);
+    }
+    .exp-card.featured .exp-tag {
+      background: rgba(224,92,42,.1);
+      color: var(--accent);
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--cream); }
+    .skills-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; margin-top: 3.5rem; align-items: start; }
+    .skill-item { margin-bottom: 2rem; }
+    .skill-header {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: .6rem;
+    }
+    .skill-name {
+      font-size: .88rem; font-weight: 600;
+      letter-spacing: .06em; color: var(--ink);
+    }
+    .skill-pct {
+      font-family: var(--ff-display);
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--accent);
+    }
+    .skill-track {
+      width: 100%; height: 3px;
+      background: rgba(0,0,0,.1); border-radius: 0;
+      overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 1.2s var(--ease);
+    }
+    .skill-fill.animate { transform: scaleX(1); }
+    .skills-cloud { }
+    .skills-cloud-title {
+      font-family: var(--ff-display);
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: .7rem; }
+    .skill-cloud-tag {
+      padding: .55rem 1.2rem;
+      background: var(--ivory);
+      border: 1px solid rgba(0,0,0,.1);
+      font-size: .8rem; font-weight: 500;
+      color: var(--ink); letter-spacing: .05em;
+      transition: all .25s var(--ease);
+      cursor: default;
+    }
+    .skill-cloud-tag:hover {
+      background: var(--accent); color: #fff;
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-top: 1rem; }
+    .tool-badge {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .7rem 1rem;
+      background: var(--ivory);
+      border: 1px solid rgba(0,0,0,.08);
+      font-size: .8rem; font-weight: 500; color: var(--ink);
+      transition: all .25s var(--ease);
+    }
+    .tool-badge i { color: var(--accent); font-size: .9rem; }
+    .tool-badge:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+    /* ── STRENGTHS ── */
+    #strengths { background: var(--ink); color: var(--ivory); }
+    #strengths .section-title { color: var(--ivory); }
+    #strengths .section-tag { color: var(--gold); }
+    #strengths .section-tag::before { background: var(--gold); }
+    .strengths-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .strength-card {
+      padding: 2.4rem 2rem;
+      border: 1px solid rgba(255,255,255,.08);
+      position: relative; overflow: hidden;
+      transition: all .35s var(--ease);
+    }
+    .strength-card::before {
+      content:''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s var(--ease);
+    }
+    .strength-card:hover { border-color: rgba(255,255,255,.15); transform: translateY(-5px); }
+    .strength-card:hover::before { transform: scaleX(1); }
+    .strength-icon {
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(224,92,42,.15);
+      border-radius: 2px; margin-bottom: 1.5rem;
+      color: var(--accent); font-size: 1.3rem;
+      transition: background .3s;
+    }
+    .strength-card:hover .strength-icon { background: rgba(224,92,42,.28); }
+    .strength-title {
+      font-family: var(--ff-display);
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--ivory); margin-bottom: .75rem;
+    }
+    .strength-desc {
+      font-size: .88rem; line-height: 1.75;
+      color: var(--light);
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--ivory); }
+    .contact-inner {
+      display: grid; grid-template-columns: 1.2fr 1fr;
+      gap: 5rem; margin-top: 3.5rem; align-items: start;
+    }
+    .contact-headline {
+      font-family: var(--ff-display);
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 300; line-height: 1.5;
+      color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .contact-headline strong { font-weight: 700; }
+    .contact-body {
+      font-size: .95rem; line-height: 1.8;
+      color: var(--mid); margin-bottom: 2rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      text-decoration: none; color: var(--ink);
+      font-size: .9rem; font-weight: 500;
+      padding: 1rem 1.4rem;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.08);
+      transition: all .3s var(--ease);
+    }
+    .contact-link:hover {
+      border-color: var(--accent);
+      transform: translateX(6px);
+    }
+    .contact-link i {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--accent); color: #fff;
+      border-radius: 2px; font-size: .9rem;
+      flex-shrink: 0;
+    }
+    .contact-form-side {}
+    .contact-cta-box {
+      background: var(--accent2);
+      padding: 3rem 2.5rem;
+      color: var(--ivory);
+    }
+    .contact-cta-box h3 {
+      font-family: var(--ff-display);
+      font-size: 1.6rem; font-weight: 700;
+      margin-bottom: .8rem;
+    }
+    .contact-cta-box p {
+      font-size: .9rem; line-height: 1.7;
+      color: rgba(247,244,239,.75);
+      margin-bottom: 2rem;
+    }
+    .contact-cta-box .btn-primary { width: 100%; justify-content: center; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 2.5rem 7%;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--ff-display);
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--ivory); text-decoration: none;
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy {
+      font-size: .78rem; color: var(--light);
+      letter-spacing: .06em;
+    }
+    .footer-socials { display: flex; gap: 1rem; }
+    .footer-social {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,.15);
+      color: var(--light); text-decoration: none;
+      font-size: .85rem;
+      transition: all .25s var(--ease);
+    }
+    .footer-social:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: .15s; }
+    .fade-up:nth-child(3) { transition-delay: .3s; }
+    .fade-up:nth-child(4) { transition-delay: .45s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      section { padding: 5rem 5%; }
+      .exp-grid { grid-template-columns: 1fr 1fr; }
+      .strengths-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .skills-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 8rem 5% 5rem; }
+      .nav-links { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--ivory); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.2rem; }
+      .hamburger { display: flex; }
+      .exp-grid { grid-template-columns: 1fr; }
+      .strengths-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ══════════ HEADER ══════════ -->
-<header id="header">
-  <div class="header-inner">
-    <a href="#" class="logo">Gartner<span class="logo-accent">&nbsp;India</span></a>
-
-    <nav class="main-nav">
-      <a href="#services">Who We Serve</a>
-      <a href="#services">Services</a>
-      <a href="#">Insights</a>
-      <a href="#locations">Locations</a>
-      <a href="#careers">Careers</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <div class="header-right">
-      <a href="#contact" class="btn btn-primary">Talk to an Expert</a>
-    </div>
-
-    <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Pranali<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#strengths">Why Me</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
-    </button>
-  </div>
-
-  <div class="mobile-drawer" id="mobile-drawer">
-    <a href="#services" onclick="closeNav()">Who We Serve</a>
-    <a href="#services" onclick="closeNav()">Services</a>
-    <a href="#" onclick="closeNav()">Insights</a>
-    <a href="#locations" onclick="closeNav()">Locations</a>
-    <a href="#careers" onclick="closeNav()">Careers</a>
-    <a href="#contact" onclick="closeNav()">Contact</a>
-    <a href="#contact" class="btn btn-primary" onclick="closeNav()">Talk to an Expert</a>
-    <a href="https://wa.me/918454863924?text=Hello%20I%20want%20to%20connect%20with%20Gartner%20India" target="_blank" rel="noopener" class="btn btn-wa">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      WhatsApp Us
-    </a>
-  </div>
-</header>
-
-
-<!-- ══════════ HERO ══════════ -->
-<section class="hero" id="home">
-  <div class="container">
-    <div class="hero-grid">
-      <div class="hero-left">
-        <div class="hero-tag">Gartner India — Research &amp; Advisory</div>
-        <h1>
-          India's C-Suite<br>Needs <em>Evidence,<br>Not Instinct.</em>
-        </h1>
-        <p class="hero-para">
-          As India crosses $1 trillion in enterprise technology investment, the cost of
-          a misinformed decision has never been higher. Gartner equips Indian business
-          and technology leaders with the benchmarks, research, and expert counsel
-          that turn complexity into clarity.
-        </p>
-        <div class="hero-ctas">
-          <a href="#contact" class="btn btn-primary">Talk to an Expert</a>
-          <a href="#" class="btn btn-outline">Explore Insights</a>
-          <a href="#careers" class="btn btn-outline">Careers at Gartner India</a>
-        </div>
-        <div class="hero-stats">
-          <div>
-            <div class="hero-stat-num">14K<sup>+</sup></div>
-            <div class="hero-stat-label">Enterprise Clients</div>
-          </div>
-          <div>
-            <div class="hero-stat-num">85%</div>
-            <div class="hero-stat-label">Fortune 500 Served</div>
-          </div>
-          <div>
-            <div class="hero-stat-num">50<sup>+</sup></div>
-            <div class="hero-stat-label">Years of Research</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="hero-cards">
-          <div class="hcard">
-            <div class="hcard-icon">🌐</div>
-            <div class="hcard-num">1,900<sup>+</sup></div>
-            <div class="hcard-label">Global Analysts</div>
-          </div>
-          <div class="hcard">
-            <div class="hcard-icon">📊</div>
-            <div class="hcard-num">15K<sup>+</sup></div>
-            <div class="hcard-label">Research Reports / Year</div>
-          </div>
-          <div class="hcard">
-            <div class="hcard-icon">🏢</div>
-            <div class="hcard-num">500<sup>+</sup></div>
-            <div class="hcard-label">Indian Enterprise Clients</div>
-          </div>
-          <div class="hcard">
-            <div class="hcard-icon">📍</div>
-            <div class="hcard-num">2</div>
-            <div class="hcard-label">India Office Locations</div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-</section>
+  </nav>
 
-
-<!-- ══════════ TRUST METRICS ══════════ -->
-<section class="metrics">
-  <div class="container">
-    <div class="metrics-row">
-      <div class="metric-cell reveal">
-        <div class="metric-n">14,000<sup>+</sup></div>
-        <div class="metric-l">Global Enterprise Clients</div>
-      </div>
-      <div class="metric-cell reveal delay-1">
-        <div class="metric-n">85%</div>
-        <div class="metric-l">Fortune 500 Coverage</div>
-      </div>
-      <div class="metric-cell reveal delay-2">
-        <div class="metric-n">50<sup>+</sup></div>
-        <div class="metric-l">Years of Research Legacy</div>
-      </div>
-      <div class="metric-cell reveal delay-3">
-        <div class="metric-n">100<sup>+</sup></div>
-        <div class="metric-l">Practice Areas Covered</div>
-      </div>
-      <div class="metric-cell reveal delay-4">
-        <div class="metric-n">2</div>
-        <div class="metric-l">India Delivery Hubs</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ══════════ SERVICES ══════════ -->
-<section class="services" id="services">
-  <div class="container">
-    <div class="services-head reveal">
-      <span class="eyebrow">What We Cover</span>
-      <h2 class="section-heading">Intelligence Calibrated<br>for Every C-Suite Function</h2>
-      <p class="section-sub">
-        From the CIO's infrastructure roadmap to the CFO's cost thesis — Gartner delivers
-        practitioner-grade research tuned to the Indian enterprise context.
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Account Strategy &amp; Client Success</div>
+      <h1 class="hero-name">Pranali<br /><em>Ughade</em></h1>
+      <p class="hero-title">Sr. Account Manager &nbsp;|&nbsp; Marketing &amp; Advertising</p>
+      <div class="hero-line"></div>
+      <p class="hero-statement">
+        Building brands isn't just about campaigns — it's about <strong>earning trust, commanding boardrooms,</strong> and turning client ambition into measurable growth.
       </p>
-      <div class="rule"></div>
+      <div class="hero-ctas">
+        <a href="#experience" class="btn btn-primary"><i class="fa-solid fa-briefcase"></i> View Work</a>
+        <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-paper-plane"></i> Get in Touch</a>
+      </div>
     </div>
-    <div class="services-cols">
-      <!-- Tech Leaders -->
-      <div class="svc-col reveal">
-        <div class="svc-col-head">
-          <h3>For IT &amp; Technology Leaders</h3>
-          <p>CIO · CTO · CISO · VP Engineering · Enterprise Architect</p>
-        </div>
-        <div class="svc-item">
-          <div class="svc-icon">🔒</div>
-          <div class="svc-body">
-            <div class="svc-title">Cybersecurity &amp; Risk</div>
-            <div class="svc-desc">Zero-trust architecture, threat intelligence, and SASE frameworks for India-scale enterprises.</div>
-          </div>
-          <div class="svc-arrow">→</div>
-        </div>
-        <div class="svc-item">
-          <div class="svc-icon">📈</div>
-          <div class="svc-body">
-            <div class="svc-title">Data &amp; Analytics</div>
-            <div class="svc-desc">AI/ML deployment strategy, data fabric design, and governance for data-led decision-making.</div>
-          </div>
-          <div class="svc-arrow">→</div>
-        </div>
-        <div class="svc-item">
-          <div class="svc-icon">🖥️</div>
-          <div class="svc-body">
-            <div class="svc-title">Infrastructure &amp; Operations</div>
-            <div class="svc-desc">Cloud migration, hybrid IT cost optimization, and FinOps discipline for large-scale environments.</div>
-          </div>
-          <div class="svc-arrow">→</div>
-        </div>
-        <div class="svc-item">
-          <div class="svc-icon">⚙️</div>
-          <div class="svc-body">
-            <div class="svc-title">Software Engineering</div>
-            <div class="svc-desc">Platform engineering maturity, DevSecOps, and build-vs-buy decision frameworks.</div>
-          </div>
-          <div class="svc-arrow">→</div>
-        </div>
-        <div class="svc-item">
-          <div class="svc-icon">🏗️</div>
-          <div class="svc-body">
-            <div class="svc-title">Enterprise Architecture</div>
-            <div class="svc-desc">Business capability mapping and technology roadmaps aligned to enterprise transformation goals.</div>
-          </div>
-          <div class="svc-arrow">→</div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="hero-initials">PU</div>
+        <div class="hero-badge">
+          <div class="hero-badge-num">6+</div>
+          <div class="hero-badge-text">Years<br/>Impact</div>
         </div>
       </div>
+      <div class="hero-card">
+        <div class="hero-card-num">50+</div>
+        <div class="hero-card-label">Clients Served Across Industries</div>
+      </div>
+    </div>
+  </section>
 
-      <!-- Business Leaders -->
-      <div class="svc-col reveal delay-2">
-        <div class="svc-col-head">
-          <h3>For Business Leaders</h3>
-          <p>CFO · CHRO · CMO · CSO · COO · Supply Chain Leaders</p>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-tag">About</div>
+    <h2 class="section-title">Strategic. Relentless.<br /><em>Results-Driven.</em></h2>
+    <div class="about-grid">
+      <div class="about-numbers">
+        <div class="about-num-item fade-up">
+          <div class="about-num">6+</div>
+          <div class="about-num-desc">Years of client-facing leadership</div>
         </div>
-        <div class="svc-item">
-          <div class="svc-icon">💰</div>
-          <div class="svc-body">
-            <div class="svc-title">Finance &amp; CFO Advisory</div>
-            <div class="svc-desc">FP&amp;A transformation, FinTech selection, and cost structure benchmarking against global peers.</div>
-          </div>
-          <div class="svc-arrow">→</div>
+        <div class="about-divider"></div>
+        <div class="about-num-item fade-up">
+          <div class="about-num">50+</div>
+          <div class="about-num-desc">Brand accounts managed</div>
         </div>
-        <div class="svc-item">
-          <div class="svc-icon">👥</div>
-          <div class="svc-body">
-            <div class="svc-title">HR &amp; Talent Strategy</div>
-            <div class="svc-desc">Future-of-work frameworks, talent market intelligence, and HR technology evaluation.</div>
-          </div>
-          <div class="svc-arrow">→</div>
+        <div class="about-divider"></div>
+        <div class="about-num-item fade-up">
+          <div class="about-num">3</div>
+          <div class="about-num-desc">Industry verticals — media, tech, telecom</div>
         </div>
-        <div class="svc-item">
-          <div class="svc-icon">📣</div>
-          <div class="svc-body">
-            <div class="svc-title">Marketing &amp; Digital Growth</div>
-            <div class="svc-desc">MarTech stack optimization, customer data strategy, and demand generation benchmarks.</div>
-          </div>
-          <div class="svc-arrow">→</div>
+      </div>
+      <div class="about-content fade-up">
+        <div class="about-bio">
+          <p>I don't manage accounts — I <strong>build partnerships</strong> that outlast campaigns. With over six years embedded in the fast-paced worlds of media, marketing, and enterprise, I've become the person that clients call when stakes are high and execution must be flawless.</p>
+          <p>At Futuready Media, I've shaped end-to-end account strategies for marquee brands — bridging the gap between creative vision and commercial outcome. Before that, stints at <strong>Gartner</strong> and <strong>Bharti Airtel</strong> sharpened my instincts for enterprise client servicing, process discipline, and navigating complex stakeholder ecosystems.</p>
+          <p>My edge is simple: I listen where others assume, I align where others fragment, and I deliver where others negotiate timelines.</p>
         </div>
-        <div class="svc-item">
-          <div class="svc-icon">🤝</div>
-          <div class="svc-body">
-            <div class="svc-title">Sales &amp; Revenue Operations</div>
-            <div class="svc-desc">B2B buyer behavior intelligence, go-to-market strategy, and sales enablement frameworks.</div>
-          </div>
-          <div class="svc-arrow">→</div>
-        </div>
-        <div class="svc-item">
-          <div class="svc-icon">🚚</div>
-          <div class="svc-body">
-            <div class="svc-title">Supply Chain &amp; Operations</div>
-            <div class="svc-desc">Resilience planning, supplier risk, and logistics technology advisory for complex Indian supply chains.</div>
-          </div>
-          <div class="svc-arrow">→</div>
+        <div class="about-pillars">
+          <span class="about-pill">Client Retention</span>
+          <span class="about-pill">Strategic Alignment</span>
+          <span class="about-pill">Revenue Growth</span>
+          <span class="about-pill">Cross-functional Leadership</span>
+          <span class="about-pill">Brand Stewardship</span>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-tag">Experience</div>
+    <h2 class="section-title">Where I've <em>Made My Mark</em></h2>
+    <div class="exp-grid">
 
-<!-- ══════════ TESTIMONIALS ══════════ -->
-<section class="testimonials">
-  <div class="container">
-    <div class="testi-head reveal">
-      <span class="eyebrow">Client Perspectives</span>
-      <h2 class="section-heading">Trusted by Those Who<br>Shape Indian Enterprise</h2>
-      <div class="rule"></div>
+      <div class="exp-card featured fade-up">
+        <div class="exp-period">2018 — Present &nbsp;·&nbsp; 6+ Years</div>
+        <div class="exp-company">Futuready<br/>Media</div>
+        <div class="exp-role">Sr. Account Manager</div>
+        <div class="exp-divider"></div>
+        <div class="exp-desc">
+          Leading a portfolio of high-value brand accounts across FMCG, real estate, and lifestyle verticals. Serve as the strategic nerve centre between clients and multi-disciplinary creative teams — translating briefs into integrated campaigns that consistently exceed KPIs. Own end-to-end delivery: from pitch to post-campaign analytics, ensuring zero gaps in quality or timeline.
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">Account Strategy</span>
+          <span class="exp-tag">Team Leadership</span>
+          <span class="exp-tag">Campaign Delivery</span>
+          <span class="exp-tag">Client Retention</span>
+        </div>
+      </div>
+
+      <div class="exp-card fade-up">
+        <div class="exp-period">Prior Experience</div>
+        <div class="exp-company">Gartner</div>
+        <div class="exp-role">Associate — Client Services</div>
+        <div class="exp-divider"></div>
+        <div class="exp-desc">
+          Delivered research-backed client servicing support to C-suite and senior decision-makers at global enterprises. Developed sharp instincts for professional communication, stakeholder expectations, and navigating high-pressure enterprise environments. Honed the discipline of translating complex data narratives into actionable client value.
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">Enterprise Clients</span>
+          <span class="exp-tag">Research Delivery</span>
+          <span class="exp-tag">Executive Engagement</span>
+        </div>
+      </div>
+
+      <div class="exp-card fade-up">
+        <div class="exp-period">Prior Experience</div>
+        <div class="exp-company">Bharti<br/>Airtel</div>
+        <div class="exp-role">Associate — Operations</div>
+        <div class="exp-divider"></div>
+        <div class="exp-desc">
+          Built a foundational command of process-driven client operations within one of India's most demanding service organisations. Developed a sharp eye for quality assurance and operational efficiency, skills that today inform how I structure and manage complex multi-stakeholder accounts with precision and consistency.
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">Process Optimisation</span>
+          <span class="exp-tag">Quality Assurance</span>
+          <span class="exp-tag">Operations</span>
+        </div>
+      </div>
+
     </div>
-    <div class="testi-grid">
-      <div class="tcard reveal">
-        <p class="tcard-quote">
-          Gartner's research didn't just validate our cloud strategy — it accelerated board alignment
-          by months. In a market moving as fast as India's, that kind of decision velocity is irreplaceable.
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-tag">Skills</div>
+    <h2 class="section-title">The Tools of <em>Exceptional Work</em></h2>
+    <div class="skills-layout">
+      <div class="skills-bars">
+        <div class="skill-item fade-up">
+          <div class="skill-header">
+            <span class="skill-name">Client Servicing &amp; Relationship Management</span>
+            <span class="skill-pct">96%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-w="96"></div></div>
+        </div>
+        <div class="skill-item fade-up">
+          <div class="skill-header">
+            <span class="skill-name">Strategic Communication</span>
+            <span class="skill-pct">92%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-w="92"></div></div>
+        </div>
+        <div class="skill-item fade-up">
+          <div class="skill-header">
+            <span class="skill-name">Campaign &amp; Project Management</span>
+            <span class="skill-pct">90%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-w="90"></div></div>
+        </div>
+        <div class="skill-item fade-up">
+          <div class="skill-header">
+            <span class="skill-name">Process Optimisation</span>
+            <span class="skill-pct">88%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-w="88"></div></div>
+        </div>
+        <div class="skill-item fade-up">
+          <div class="skill-header">
+            <span class="skill-name">Quality Assurance &amp; Delivery</span>
+            <span class="skill-pct">94%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-w="94"></div></div>
+        </div>
+        <div class="skill-item fade-up">
+          <div class="skill-header">
+            <span class="skill-name">Stakeholder Alignment</span>
+            <span class="skill-pct">93%</span>
+          </div>
+          <div class="skill-track"><div class="skill-fill" data-w="93"></div></div>
+        </div>
+      </div>
+      <div class="skills-cloud">
+        <div class="skills-cloud-title">Domain &amp; Soft Skills</div>
+        <div class="skill-tags">
+          <span class="skill-cloud-tag">Brand Strategy</span>
+          <span class="skill-cloud-tag">Integrated Marketing</span>
+          <span class="skill-cloud-tag">Upselling &amp; Cross-selling</span>
+          <span class="skill-cloud-tag">Presentation &amp; Pitching</span>
+          <span class="skill-cloud-tag">Conflict Resolution</span>
+          <span class="skill-cloud-tag">KPI Reporting</span>
+          <span class="skill-cloud-tag">Negotiation</span>
+          <span class="skill-cloud-tag">Team Collaboration</span>
+          <span class="skill-cloud-tag">Creative Briefing</span>
+          <span class="skill-cloud-tag">Budget Management</span>
+          <span class="skill-cloud-tag">Timeline Governance</span>
+          <span class="skill-cloud-tag">Vendor Management</span>
+        </div>
+        <br/>
+        <div class="skills-cloud-title">Tools &amp; Platforms</div>
+        <div class="tools-grid">
+          <div class="tool-badge"><i class="fa-solid fa-chart-bar"></i> Google Analytics</div>
+          <div class="tool-badge"><i class="fa-brands fa-microsoft"></i> MS Office Suite</div>
+          <div class="tool-badge"><i class="fa-solid fa-file-powerpoint"></i> Pitch Decks</div>
+          <div class="tool-badge"><i class="fa-solid fa-clipboard-list"></i> CRM Tools</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRENGTHS -->
+  <section id="strengths">
+    <div class="section-tag">Why Me</div>
+    <h2 class="section-title">What Sets Me <em>Apart</em></h2>
+    <div class="strengths-grid">
+      <div class="strength-card fade-up">
+        <div class="strength-icon"><i class="fa-solid fa-handshake"></i></div>
+        <div class="strength-title">Client-First, Always</div>
+        <div class="strength-desc">I treat every client relationship as a long-term asset. My retention track record speaks to an approach rooted in genuine accountability, not just deliverables — anticipating needs before they're voiced and solving problems before they escalate.</div>
+      </div>
+      <div class="strength-card fade-up">
+        <div class="strength-icon"><i class="fa-solid fa-bullseye"></i></div>
+        <div class="strength-title">Executes Without Excuses</div>
+        <div class="strength-desc">In an industry full of great strategists, I'm the one who also makes it happen. From brief to delivery, I ensure that intent translates to output — with the quality, consistency, and urgency that top-tier clients demand.</div>
+      </div>
+      <div class="strength-card fade-up">
+        <div class="strength-icon"><i class="fa-solid fa-people-arrows"></i></div>
+        <div class="strength-title">The Bridge That Holds</div>
+        <div class="strength-desc">I sit at the intersection of client vision and creative execution — translating ambiguous objectives into precise internal briefs, and complex creative rationale into business language that clients respect and approve.</div>
+      </div>
+      <div class="strength-card fade-up">
+        <div class="strength-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+        <div class="strength-title">Detail Orientation at Scale</div>
+        <div class="strength-desc">Managing multiple brand accounts simultaneously demands more than multitasking — it demands a system. My process discipline, built through enterprise training at Gartner and Airtel, means nothing falls through the cracks, ever.</div>
+      </div>
+      <div class="strength-card fade-up">
+        <div class="strength-icon"><i class="fa-solid fa-comments"></i></div>
+        <div class="strength-title">Communication That Converts</div>
+        <div class="strength-desc">Whether presenting a campaign rationale or de-escalating a client concern, my communication is clear, confident, and calibrated. I speak the language of outcomes — and I back every conversation with data.</div>
+      </div>
+      <div class="strength-card fade-up">
+        <div class="strength-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+        <div class="strength-title">Growth Mindset, Growth Results</div>
+        <div class="strength-desc">My ambition isn't just to manage accounts — it's to grow them. I actively identify upsell opportunities, propose strategic expansions, and help clients evolve their marketing investments into compounding brand equity.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-tag">Contact</div>
+    <h2 class="section-title">Let's Build <em>Something Great</em></h2>
+    <div class="contact-inner">
+      <div class="contact-info">
+        <div class="contact-headline">
+          Ready for a partner who treats your brand like their own? <strong>Let's talk.</strong>
+        </div>
+        <p class="contact-body">
+          Whether you're looking for a senior account leader, a collaborative strategist, or simply want to explore what a partnership could look like — I'd love to connect. I bring clarity, commitment, and a track record of results.
         </p>
-        <div class="tcard-rule"></div>
-        <div class="tcard-name">Ananya Krishnamurthy</div>
-        <div class="tcard-role">Chief Information Officer<br>Leading Indian BFSI Conglomerate</div>
-      </div>
-      <div class="tcard reveal delay-2">
-        <p class="tcard-quote">
-          We evaluated five advisory firms before engaging Gartner. The depth of India-specific
-          benchmarking and the quality of analyst access were simply in a different league.
-        </p>
-        <div class="tcard-rule"></div>
-        <div class="tcard-name">Vikram Seshadri</div>
-        <div class="tcard-role">Group Chief Technology Officer<br>Diversified Infrastructure Enterprise, Mumbai</div>
-      </div>
-      <div class="tcard reveal delay-3">
-        <p class="tcard-quote">
-          For our data governance transformation, Gartner's framework gave us the vocabulary and
-          evidence base to align 12 business units. Institutional clarity at that scale is rare.
-        </p>
-        <div class="tcard-rule"></div>
-        <div class="tcard-name">Priya Mehta</div>
-        <div class="tcard-role">Chief Data Officer<br>Top-5 Indian Pharmaceutical Group</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ══════════ LOCATIONS ══════════ -->
-<section class="locations" id="locations">
-  <div class="container">
-    <div class="loc-head reveal">
-      <span class="eyebrow">Our India Presence</span>
-      <h2 class="section-heading">Two Strategic Hubs.<br>One Research Engine.</h2>
-      <p class="section-sub">
-        Embedded in India's leading commercial corridors, our teams deliver global intelligence
-        with local market depth — serving clients and building careers.
-      </p>
-    </div>
-    <div class="loc-layout">
-      <div class="tab-nav" role="tablist">
-        <button class="tab-btn active" onclick="switchTab('gurugram', this)" role="tab">
-          <span class="tab-icon">🏙️</span>
-          <span>
-            <span class="tab-btn-title">Gurugram</span>
-            <span class="tab-btn-sub">DLF Cyber Park, Haryana</span>
-          </span>
-        </button>
-        <button class="tab-btn" onclick="switchTab('chennai', this)" role="tab">
-          <span class="tab-icon">🌊</span>
-          <span>
-            <span class="tab-btn-title">Chennai</span>
-            <span class="tab-btn-sub">Tamil Nadu</span>
-          </span>
-        </button>
-      </div>
-
-      <div class="tab-content">
-        <div class="tab-panel active" id="tab-gurugram">
-          <div class="loc-card">
-            <div class="loc-visual">
-              🏢
-              <div class="loc-badge">DLF Cyber Park · Gurugram, Haryana</div>
-            </div>
-            <div class="loc-body">
-              <h3>Gurugram — North India Headquarters</h3>
-              <p>
-                Located in DLF Cyber Park at the heart of India's enterprise technology corridor,
-                our Gurugram office is Gartner India's largest delivery centre — housing the majority
-                of client-facing advisory, research operations, and sales leadership.
-              </p>
-              <div class="loc-pills">
-                <span class="pill">Client Advisory</span>
-                <span class="pill">Research Operations</span>
-                <span class="pill">Sales Leadership</span>
-                <span class="pill">Executive Programs</span>
-              </div>
-              <div class="loc-hiring">
-                <strong>Current Hiring Focus:</strong> Research Analysts, Account Executives,
-                Client Partners, Data Scientists, and People &amp; Culture leaders.
-              </div>
-            </div>
-          </div>
+        <div class="contact-links">
+          <a href="mailto:writepranalii@gmail.com" class="contact-link">
+            <i class="fa-solid fa-envelope"></i>
+            writepranalii@gmail.com
+          </a>
+          <a href="https://linkedin.com/in/pranali-ughade" target="_blank" rel="noopener" class="contact-link">
+            <i class="fa-brands fa-linkedin-in"></i>
+            linkedin.com/in/pranali-ughade
+          </a>
+          <a href="mailto:writepranalii@gmail.com" class="contact-link">
+            <i class="fa-solid fa-location-dot"></i>
+            Mumbai, Maharashtra, India
+          </a>
         </div>
-
-        <div class="tab-panel" id="tab-chennai">
-          <div class="loc-card">
-            <div class="loc-visual">
-              🌊
-              <div class="loc-badge">Chennai · Tamil Nadu</div>
-            </div>
-            <div class="loc-body">
-              <h3>Chennai — South India Centre</h3>
-              <p>
-                Our Chennai office anchors Gartner's South India strategy, serving the region's
-                rapidly growing IT services, manufacturing, and healthcare enterprise clusters.
-                A critical hub for regional client engagement and talent development.
-              </p>
-              <div class="loc-pills">
-                <span class="pill">Technology Research</span>
-                <span class="pill">Product &amp; Engineering</span>
-                <span class="pill">Regional Client Services</span>
-              </div>
-              <div class="loc-hiring">
-                <strong>Current Hiring Focus:</strong> Software Engineers, Product Analysts,
-                Regional Account Managers, and Research Associates in BFSI and Manufacturing verticals.
-              </div>
-            </div>
-          </div>
+      </div>
+      <div class="contact-form-side">
+        <div class="contact-cta-box">
+          <h3>Open to Opportunities</h3>
+          <p>I'm selectively exploring senior account management and strategic leadership roles with forward-thinking agencies and brands. If you're building something ambitious, I want to hear about it.</p>
+          <a href="mailto:writepranalii@gmail.com" class="btn btn-primary">
+            <i class="fa-solid fa-paper-plane"></i> Send a Message
+          </a>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-<!-- ══════════ LEAD FORM ══════════ -->
-<section class="lead-section" id="contact">
-  <div class="container">
-    <div class="lead-inner">
-      <div class="lead-copy reveal">
-        <span class="eyebrow">Start the Conversation</span>
-        <h2 class="section-heading">Every Advantage Begins<br>with the Right Data.</h2>
-        <p class="section-sub">
-          Speak with a Gartner advisor who understands your industry, your market,
-          and the decisions you're navigating right now.
-        </p>
-        <ul class="lead-list">
-          <li>Complimentary 30-minute discovery session with a domain expert</li>
-          <li>India-specific benchmarks for your sector and company scale</li>
-          <li>No obligation — sharper context for your next decision</li>
-          <li>Response within 1 business day</li>
-        </ul>
-        <div class="form-wa-alt">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="#25d366" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          <p><strong>Prefer instant messaging?</strong> Connect with our team directly on WhatsApp.</p>
-          <a href="https://wa.me/918454863924?text=Hello%20I%20want%20to%20connect%20with%20Gartner%20India" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp Us</a>
-        </div>
-      </div>
-
-      <div class="form-card reveal delay-2">
-        <h3>Request Advisory</h3>
-        <div class="form-2col">
-          <div class="fgroup">
-            <label for="f-name">Full Name</label>
-            <input type="text" id="f-name" placeholder="Anil Sharma" autocomplete="name" />
-          </div>
-          <div class="fgroup">
-            <label for="f-role">Your Role</label>
-            <input type="text" id="f-role" placeholder="Chief Technology Officer" />
-          </div>
-        </div>
-        <div class="fgroup">
-          <label for="f-email">Work Email</label>
-          <input type="email" id="f-email" placeholder="anil@company.com" autocomplete="email" />
-        </div>
-        <div class="fgroup">
-          <label for="f-company">Company</label>
-          <input type="text" id="f-company" placeholder="Your Organisation" autocomplete="organization" />
-        </div>
-        <div class="fgroup">
-          <label for="f-interest">Area of Interest</label>
-          <select id="f-interest">
-            <option value="" disabled selected>Select a practice area</option>
-            <option>Cybersecurity &amp; Risk</option>
-            <option>Data &amp; Analytics</option>
-            <option>Cloud &amp; Infrastructure</option>
-            <option>Software Engineering</option>
-            <option>Enterprise Architecture</option>
-            <option>Finance &amp; CFO Advisory</option>
-            <option>HR &amp; Talent Strategy</option>
-            <option>Marketing &amp; Digital</option>
-            <option>Sales &amp; Revenue Operations</option>
-            <option>Supply Chain</option>
-            <option>General Inquiry</option>
-          </select>
-        </div>
-        <button class="form-submit" onclick="submitForm(this)">Request Advisory →</button>
-        <p class="form-note">By submitting, you agree to Gartner's privacy policy. We never sell your data.</p>
-      </div>
+  <!-- FOOTER -->
+  <footer>
+    <a href="#hero" class="footer-logo">Pranali<span>.</span></a>
+    <p class="footer-copy">© 2025 Pranali Ughade &nbsp;·&nbsp; Sr. Account Manager</p>
+    <div class="footer-socials">
+      <a href="mailto:writepranalii@gmail.com" class="footer-social"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://linkedin.com/in/pranali-ughade" target="_blank" rel="noopener" class="footer-social"><i class="fa-brands fa-linkedin-in"></i></a>
     </div>
-  </div>
-</section>
+  </footer>
 
-
-<!-- ══════════ CAREERS ══════════ -->
-<section class="careers" id="careers">
-  <div class="container">
-    <div class="careers-inner">
-      <div class="careers-left reveal">
-        <span class="eyebrow">Join Gartner India</span>
-        <h2 class="section-heading">Build the Intelligence<br>That Moves Industry.</h2>
-        <p class="section-sub">
-          At Gartner India, you're not advising from the sidelines — you're embedded in decisions
-          that reshape how enterprises think, invest, and compete. We offer rare access to global
-          research infrastructure, world-class mentorship, and work that matters.
-        </p>
-        <div class="careers-perks">
-          <div class="perk">
-            <div class="perk-icon">🔬</div>
-            <div class="perk-title">Research-First Culture</div>
-            <div class="perk-desc">Work alongside 1,900+ global analysts on problems that shape entire industries.</div>
-          </div>
-          <div class="perk">
-            <div class="perk-icon">🌍</div>
-            <div class="perk-title">Global Mobility</div>
-            <div class="perk-desc">Structured pathways to Gartner offices across 100+ countries.</div>
-          </div>
-          <div class="perk">
-            <div class="perk-icon">📚</div>
-            <div class="perk-title">Continuous Learning</div>
-            <div class="perk-desc">Certifications, executive coaching, and structured development programmes.</div>
-          </div>
-          <div class="perk">
-            <div class="perk-icon">💼</div>
-            <div class="perk-title">High-Impact Roles</div>
-            <div class="perk-desc">Every role touches Fortune 500 decisions from your first week.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="careers-right reveal delay-2">
-        <span class="eyebrow">Open Roles</span>
-        <h2 class="section-heading">We're Hiring Across<br>Both India Offices</h2>
-        <p class="section-sub">
-          We seek analysts, technologists, and strategists who are intellectually
-          curious, commercially aware, and driven by work that endures.
-        </p>
-        <div class="openings">
-          <div class="opening-row">
-            <span class="opening-label">Research &amp; Analysis</span>
-            <span class="opening-count">24 openings</span>
-          </div>
-          <div class="opening-row">
-            <span class="opening-label">Technology &amp; Engineering</span>
-            <span class="opening-count">18 openings</span>
-          </div>
-          <div class="opening-row">
-            <span class="opening-label">Client Advisory &amp; Sales</span>
-            <span class="opening-count">31 openings</span>
-          </div>
-          <div class="opening-row">
-            <span class="opening-label">Operations &amp; Support</span>
-            <span class="opening-count">9 openings</span>
-          </div>
-        </div>
-        <a href="#" class="btn btn-primary" style="margin-top:28px">Explore All Open Roles →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ══════════ FOOTER ══════════ -->
-<footer>
-  <div class="container">
-    <div class="footer-cols">
-      <div class="footer-brand-col">
-        <a href="#" class="logo">Gartner<span style="color:#82b8f5">&nbsp;India</span></a>
-        <p>
-          Gartner, Inc. is the world's leading research and advisory company.
-          Our India operations deliver global intelligence with local market depth,
-          serving enterprise leaders across technology, finance, and operations.
-        </p>
-      </div>
-      <div class="footer-nav-col">
-        <h4>Services</h4>
-        <a href="#">Research &amp; Reports</a>
-        <a href="#">Executive Advisory</a>
-        <a href="#">Benchmarking</a>
-        <a href="#">Magic Quadrant</a>
-        <a href="#">Peer Insights</a>
-      </div>
-      <div class="footer-nav-col">
-        <h4>Company</h4>
-        <a href="#">About Gartner</a>
-        <a href="#">Our Analysts</a>
-        <a href="#">Newsroom</a>
-        <a href="#careers">Careers India</a>
-        <a href="#locations">Offices</a>
-      </div>
-      <div class="footer-nav-col">
-        <h4>Connect</h4>
-        <a href="#contact">Talk to an Expert</a>
-        <a href="https://wa.me/918454863924?text=Hello%20I%20want%20to%20connect%20with%20Gartner%20India" target="_blank" rel="noopener">WhatsApp Us</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Events &amp; Symposia</a>
-        <a href="#">Privacy Policy</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2024 Gartner, Inc. and/or its affiliates. All rights reserved. Gartner is a registered trademark of Gartner, Inc.</p>
-      <div class="footer-badges">
-        <span class="fbadge">🔒 SSL Secured</span>
-        <span class="fbadge">🇮🇳 India Operations</span>
-      </div>
-    </div>
-  </div>
-</footer>
-
-
-<!-- ══════════ WHATSAPP FAB ══════════ -->
-<a
-  href="https://wa.me/918454863924?text=Hello%20I%20want%20to%20connect%20with%20Gartner%20India"
-  class="wa-fab"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Chat with Gartner India on WhatsApp"
-  title="WhatsApp us"
->
-  <!-- Official WhatsApp SVG icon -->
-  <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-  <span class="wa-tooltip">Chat on WhatsApp</span>
-</a>
-
-
-<!-- ══════════ MOBILE STICKY CTA BAR ══════════ -->
-<div class="mobile-cta-bar" role="navigation" aria-label="Quick actions">
-  <a href="#contact" class="btn btn-primary">Talk to an Expert</a>
-  <a
-    href="https://wa.me/918454863924?text=Hello%20I%20want%20to%20connect%20with%20Gartner%20India"
-    class="btn btn-wa"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-    WhatsApp Us
-  </a>
-</div>
-
-
-<!-- ══════════ SCRIPTS ══════════ -->
-<script>
-  /* ── Header scroll shadow ── */
-  const header = document.getElementById('header');
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 20);
-  }, { passive: true });
-
-  /* ── Mobile nav ── */
-  function toggleNav() {
-    const hamburger = document.getElementById('hamburger');
-    const drawer    = document.getElementById('mobile-drawer');
-    hamburger.classList.toggle('open');
-    drawer.classList.toggle('open');
-  }
-  function closeNav() {
-    document.getElementById('hamburger').classList.remove('open');
-    document.getElementById('mobile-drawer').classList.remove('open');
-  }
-
-  /* ── Location tabs ── */
-  function switchTab(id, btn) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + id).classList.add('active');
-    btn.classList.add('active');
-  }
-
-  /* ── Scroll reveal ── */
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
+  <script>
+    // Nav scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
-  revealEls.forEach(el => io.observe(el));
 
-  /* ── Form submit ── */
-  function submitForm(btn) {
-    const name  = document.getElementById('f-name').value.trim();
-    const email = document.getElementById('f-email').value.trim();
-    const co    = document.getElementById('f-company').value.trim();
-    if (!name || !email || !co) {
-      alert('Please fill in your name, work email, and company to continue.');
-      return;
+    // Hamburger menu
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
     }
-    btn.textContent = '✓ Request Received — We\'ll be in touch within 1 business day';
-    btn.style.background = '#16a34a';
-    btn.style.boxShadow  = '0 6px 20px rgba(22,163,74,.35)';
-    btn.disabled = true;
-    btn.style.cursor = 'default';
-  }
-</script>
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+    });
 
+    // Intersection Observer — fade-up + skill bar animations
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Animate skill bars inside the observed element or section
+          const fills = entry.target.querySelectorAll ? entry.target.querySelectorAll('.skill-fill') : [];
+          fills.forEach(f => {
+            const w = parseFloat(f.dataset.w) / 100;
+            f.style.transform = `scaleX(${w})`;
+          });
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+    // Skill bar observer (section level)
+    const skillSection = document.getElementById('skills');
+    const skillIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.skill-fill').forEach(f => {
+            const w = parseFloat(f.dataset.w) / 100;
+            setTimeout(() => { f.style.transform = `scaleX(${w})`; }, 200);
+          });
+          skillIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    if (skillSection) skillIo.observe(skillSection);
+  </script>
 </body>
 </html>
